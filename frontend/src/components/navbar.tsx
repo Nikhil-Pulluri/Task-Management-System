@@ -42,7 +42,7 @@ export function Navbar() {
             {/* <div onClick={toggleTheme} className="h-4 w-[20px]">
             </div> */}
             <motion.div onClick={toggleTheme} whileHover={{ scale: 1.5 }} whileTap={{ scale: 0.95 }}>
-              <Classic duration={750} placeholder={undefined} />
+              <Classic duration={750} />
             </motion.div>
             <Button>Get Started</Button>
           </div>

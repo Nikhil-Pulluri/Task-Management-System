@@ -3,8 +3,27 @@
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRight, CheckCircle } from 'lucide-react'
+import { signIn, useSession } from 'next-auth/react'
+import { useEffect } from 'react'
 
 export function Hero() {
+  const { data: session } = useSession()
+
+  useEffect(() => {
+    if (session && session.user) {
+      const userData = {
+        name: session.user.name ?? '',
+        email: session.user.email ?? '',
+        image: session.user.image ?? '',
+      }
+
+      console.log(session)
+
+      // setUser(userData)
+
+      // route.push('/Chat')
+    }
+  }, [session])
   return (
     <section className="relative min-h-[90vh] flex items-center">
       {/* Background Pattern */}
@@ -21,7 +40,11 @@ export function Hero() {
             </h1>
             <p className="text-xl text-blue-800/80 dark:text-gray-300 mb-8 max-w-lg">Transform your workflow with our intuitive task management platform.</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="text-lg px-8 bg-blue-900 hover:bg-blue-800  dark:text-white dark:border-gray-400 dark:hover:bg-gray-700 transition-all duration-300 group">
+              <Button
+                size="lg"
+                className="text-lg px-8 bg-blue-900 hover:bg-blue-800  dark:text-white dark:border-gray-400 dark:hover:bg-gray-700 transition-all duration-300 group"
+                onClick={() => signIn()}
+              >
                 Get Started
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -30,7 +53,7 @@ export function Hero() {
               </Button>
             </div>
             <div className="mt-8 flex items-center gap-8">
-              {['10K+ Users', '99% Uptime', '24/7 Support'].map((item) => (
+              {['100+ Users', '99% Uptime', '24/7 Support'].map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-blue-700 dark:text-blue-300" />
                   <span className="text-sm font-medium text-blue-900 dark:text-gray-300">{item}</span>
